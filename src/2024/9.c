@@ -5,10 +5,9 @@
 
 //We add +2 to the id:s
 void unpack_disc_map(char *map, int* unpacked){
-    unpacked[0] = 2;
-    unpacked[1] = 1;
-    unpacked[2] = 1;
-    unpacked[3] = 0;
+    unpacked[0] = 0;
+    unpacked[1] = -1;
+    unpacked[2] = -1;
 }
 
 //--------------Test helpers------------------
@@ -32,69 +31,47 @@ char *apply_result(int boolean_result)
     return fail;
 }
 
-int count_unpacked(int *unpacked){
-
-    int count = 0;
-    while(unpacked[count] != 0){
-        count++;
-    }
-    return count;
-}
-
-//1 is true
-int int_array_equals(int *exp, int *res){
-    int lenExp = count_unpacked(exp);
-    int lenRes = count_unpacked(res);
-    int lenEqual = lenExp == lenRes;
-    int memComp = memcmp(exp, res, lenRes * sizeof(int)) == 0 ? 1 : 0;
-    return lenEqual & memComp;
+int int_array_equals(int *exp, int *res, int len){
+    return memcmp(exp, res, len * sizeof(int)) == 0 ? 1 : 0;
 }
 
 char* print_unpacked(int* array, int length){
     printf("[");
     for (int i = 0; i < length; i++)
     {
-        int current = array[i];
-        if(current == 1) {
-            printf(".");
-        }
-        else if(current == 0){
-            printf("\\0");
-        }
-        else {
-            printf("%d", current-2);
-        }
+        printf("%d", array[i]);
     }
     printf("]");
 }
 
-void log_array_result(int *exp, int *res, int equals, char *test_name){
+void log_array_result(int *exp, int *res, int equals, int len, char *test_name){
 
-    char* fail = apply_result(equals);
     printf("%d, %s ", tests, test_name);
     printf("expected: ");
-    print_unpacked(exp, 3);
+    print_unpacked(exp, len);
     printf(" result: ");
-    print_unpacked(res, 3);
+    print_unpacked(res, len);
+
+    char* fail = apply_result(equals);
     printf("%s\n", fail);
 }
 
 //--------------Test code--------------------
 
-void unpack_disc_map__12__2110() //translate numbs by 2
+void unpack_disc_map__12__0m1m1() //translate numbs by 2
 {
     char *map = "12";
-    int res[4];
+    int res[3];
     unpack_disc_map(map, res);
-    int exp[4] = {2, 1, 1, 0};
+    int exp[3] = {0, -1, -1};
     
-    int equals = int_array_equals(exp, res);
-    log_array_result(exp, res, equals, "unpack_disc_map__12__2110");
+    int equals = int_array_equals(exp, res, 3);
+    log_array_result(exp, res, equals, 3,  "unpack_disc_map__12__0m1m1");
 }
 
 int main(){
 
-    unpack_disc_map__12__0nn();
+    unpack_disc_map__12__0m1m1();
 
     //Summary
     printf("---------------------------------------\n");
