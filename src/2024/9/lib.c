@@ -2,7 +2,7 @@
 #include <string.h>
 
 //https://adventofcode.com/2024/day/9
-
+const int ARRAY_SIZE = 1028;
 //We add +2 to the id:s
 int unpack_disc_map(const char *map, int* unpacked){
     
@@ -86,7 +86,7 @@ int fill_empty_slots(int* unpacked, int* empty_slots, int len_unpacked, int len_
 }
 
 int move_files_left(int* unpacked, int len_unpacked){
-    int empty_slots[10];
+    int empty_slots[ARRAY_SIZE];
 
     //Get index of all the empty spots
     int len_empty_slots = get_empty_slots(unpacked, len_unpacked, empty_slots);
@@ -104,4 +104,13 @@ int calcultate_checksum(int *packed_volume, int len)
     }
     
     return sum;
+}
+
+int pack_and_validate_volume(const char *map)
+{
+    int unpacked[ARRAY_SIZE];
+    int len_unpacked = unpack_disc_map(map, unpacked);
+    int len_moved = move_files_left(unpacked, len_unpacked);
+    int checksum = calcultate_checksum(unpacked, len_moved);
+    return checksum;
 }

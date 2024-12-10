@@ -13,6 +13,7 @@ extern int get_empty_slots(int* unpacked, int len, int* empty_slots);
 extern int fill_empty_slots(int* unpacked, int* empty_slots, int len_unpacked, int len_empty_slots);
 extern int move_files_left(int* unpacked, int len_unpacked);
 extern int calcultate_checksum(int *packed_volume, int len);
+extern int pack_and_validate_volume(const char *map);
 
 void unpack_disc_map__12__0m1m1()
 {
@@ -271,6 +272,38 @@ void calculate_checksum__01__1(){
     log_array_result(exp, res, equals, 1,  "calculate_checksum__00__0");
 }
 
+void pack_and_validate_volume__11__0(){
+    char *map = "11";
+    int checksum = pack_and_validate_volume(map);
+    int exp[3] = {0};
+    int res[3] = { checksum };
+    
+    int equals = int_array_equals(exp, res, 1);
+    log_array_result(exp, res, equals, 1,  "pack_and_validate_volume__11__0");
+}
+
+void pack_and_validate_volume__1m11__1(){
+    char *map = "111";
+    int checksum = pack_and_validate_volume(map);
+    int exp[3] = {1};
+    int res[3] = { checksum };
+    
+    int equals = int_array_equals(exp, res, 1);
+    log_array_result(exp, res, equals, 1,  "pack_and_validate_volume__11__0");
+}
+
+void pack_and_validate_volume__2333133121414131402__1928(){
+    char *map = "2333133121414131402";
+    int checksum = pack_and_validate_volume(map);
+    int exp[3] = {1928};
+    int res[3] = { checksum };
+    
+    int equals = int_array_equals(exp, res, 1);
+    log_array_result(exp, res, equals, 1,  "pack_and_validate_volume__11__0");
+}
+
+
+
 int main(){
 
     unpack_disc_map__12__0m1m1();
@@ -301,6 +334,9 @@ int main(){
     calculate_checksum__00__0();
     calculate_checksum__01__1();
 
+    pack_and_validate_volume__11__0();
+    pack_and_validate_volume__1m11__1();
+    pack_and_validate_volume__2333133121414131402__1928();
     //Summary
     return summerize_tests();
 }

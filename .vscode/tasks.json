@@ -7,6 +7,8 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
+                "${workspaceFolder}/src/testlib.c",
+                "${fileDirname}/lib.c",
                 "${file}",
                 "-o",
                 "${workspaceFolder}/output/${fileBasenameNoExtension}"

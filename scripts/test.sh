@@ -8,4 +8,4 @@ if [[ $day == "" ]]; then
 fi
 
 # -g is with debug information
-gcc -g ./src/testlib.c ./src/2024/"$day".lib.c ./src/2024/"$day".tests.c -o ./output/"$day".tests && ./output/"$day".tests
+gcc -g ./src/testlib.c ./src/2024/"$day"/lib.c ./src/2024/"$day"/tests.c -o ./output/"$1".tests && ./output/"$day".tests
