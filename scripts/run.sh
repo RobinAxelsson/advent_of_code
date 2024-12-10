@@ -8,4 +8,4 @@ if [[ $day == "" ]]; then
 fi
 
 # -g is with debug information
-gcc -g ./src/2024/"$day".c -o ./output/"$day" && [ "$2" == "-g" ] && gdb -q ./output/"$day" || ./output/"$day"
+gcc -g ./src/2024/"$day".c -o ./output/"$day" && ./output/"$day"
