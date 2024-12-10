@@ -2,12 +2,36 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "C/C++: gcc build active file",
+            "label": "C-test: gcc build active file",
             "command": "/usr/bin/gcc",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
                 "${workspaceFolder}/src/testlib.c",
+                "${fileDirname}/lib.c",
+                "${file}",
+                "-o",
+                "${workspaceFolder}/output/${fileBasenameNoExtension}.tests"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "compiler: /usr/bin/gcc"
+        },
+        {
+            "type": "cppbuild",
+            "label": "C-main: gcc build active file",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
                 "${fileDirname}/lib.c",
                 "${file}",
                 "-o",
@@ -19,10 +43,8 @@
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build",
+            "detail": "compiler: /usr/bin/gcc"
         }
     ],
     "version": "2.0.0"

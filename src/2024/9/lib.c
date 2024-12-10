@@ -2,7 +2,7 @@
 #include <string.h>
 
 //https://adventofcode.com/2024/day/9
-const int ARRAY_SIZE = 1028;
+const int ARRAY_SIZE = 20000;
 //We add +2 to the id:s
 int unpack_disc_map(const char *map, int* unpacked){
     
@@ -85,12 +85,10 @@ int fill_empty_slots(int* unpacked, int* empty_slots, int len_unpacked, int len_
     return i_unpacked + 1;
 }
 
-int move_files_left(int* unpacked, int len_unpacked){
-    int empty_slots[ARRAY_SIZE];
-
+int move_files_left(int* unpacked, int len_unpacked, int *empty_slots_buffer){
     //Get index of all the empty spots
-    int len_empty_slots = get_empty_slots(unpacked, len_unpacked, empty_slots);
-    int new_size = fill_empty_slots(unpacked, empty_slots, len_unpacked, len_empty_slots);
+    int len_empty_slots = get_empty_slots(unpacked, len_unpacked, empty_slots_buffer);
+    int new_size = fill_empty_slots(unpacked, empty_slots_buffer, len_unpacked, len_empty_slots);
     
     return new_size;
 }
@@ -106,11 +104,10 @@ int calcultate_checksum(int *packed_volume, int len)
     return sum;
 }
 
-int pack_and_validate_volume(const char *map)
+int pack_and_validate_volume(const char *map, int *buffer_unpacked, int *buffer_empty_slots)
 {
-    int unpacked[ARRAY_SIZE];
-    int len_unpacked = unpack_disc_map(map, unpacked);
-    int len_moved = move_files_left(unpacked, len_unpacked);
-    int checksum = calcultate_checksum(unpacked, len_moved);
+    int len_unpacked = unpack_disc_map(map, buffer_unpacked);
+    int len_moved = move_files_left(buffer_unpacked, len_unpacked, buffer_empty_slots);
+    int checksum = calcultate_checksum(buffer_unpacked, len_moved);
     return checksum;
 }
