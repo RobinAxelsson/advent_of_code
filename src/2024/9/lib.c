@@ -2,8 +2,6 @@
 #include <string.h>
 
 //https://adventofcode.com/2024/day/9
-const int ARRAY_SIZE = 20000;
-//We add +2 to the id:s
 int unpack_disc_map(const char *map, int* unpacked){
     
     int next = 0;
