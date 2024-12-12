@@ -12,7 +12,7 @@ extern int unpack_disc_map(const char *map, int* unpacked);
 extern int get_empty_slots(int* unpacked, int len, int* empty_slots);
 extern int fill_empty_slots(int* unpacked, int* empty_slots, int len_unpacked, int len_empty_slots);
 extern int move_files_left(int* unpacked, int len_unpacked, int *empty_slots_buffer);
-extern int calcultate_checksum(int *packed_volume, int len);
+extern unsigned long calcultate_checksum(int *packed_volume, int len);
 int pack_and_validate_volume(const char *map, int *buffer_unpacked, int *buffer_empty_slots);
 
 void unpack_disc_map__12__0m1m1()
@@ -312,7 +312,6 @@ void pack_and_validate_volume__2333133121414131402__1928(){
     int equals = int_array_equals(exp, res, 1);
     log_array_result(exp, res, equals, 1,  "pack_and_validate_volume__11__0");
 }
-
 
 
 int main(){

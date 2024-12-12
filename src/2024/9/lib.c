@@ -2,12 +2,12 @@
 #include <string.h>
 
 //https://adventofcode.com/2024/day/9
-int unpack_disc_map(const char *map, int* unpacked){
+long unpack_disc_map(const char *map, int* unpacked){
     
     int next = 0;
     int STATE_disc = 1;
     int id = 0;
-    int unpacked_i = 0;
+    long unpacked_i = 0;
     int i = 0;
     while (map[i] != 0)
     {
@@ -38,8 +38,8 @@ int unpack_disc_map(const char *map, int* unpacked){
     return unpacked_i;
 }
 
-int get_empty_slots(int* unpacked, int len, int* empty_slots){
-    int i_empty = 0;
+long get_empty_slots(int* unpacked, long len, int* empty_slots){
+    long i_empty = 0;
 
     for (int i = 0; i < len; i++)
     {
@@ -53,14 +53,14 @@ int get_empty_slots(int* unpacked, int len, int* empty_slots){
     return i_empty;
 }
 
-int fill_empty_slots(int* unpacked, int* empty_slots, int len_unpacked, int len_empty_slots){
+long fill_empty_slots(int* unpacked, int* empty_slots, int len_unpacked, int len_empty_slots){
     // int new_size = len_unpacked; //tracks the shrinking unpacked
     int i_empty_slots = 0;
-    int i_unpacked = len_unpacked-1; //iterate backwards
+    long i_unpacked = len_unpacked-1; //iterate backwards
 
     while (i_empty_slots < len_empty_slots) //check if the empty spots are filled
     {
-        int rightmost_unpacked = unpacked[i_unpacked];
+        long rightmost_unpacked = unpacked[i_unpacked];
         //if it is a number - not a empty slot swap the values
         if(rightmost_unpacked != -1){
             //Get the empty slot
@@ -83,17 +83,17 @@ int fill_empty_slots(int* unpacked, int* empty_slots, int len_unpacked, int len_
     return i_unpacked + 1;
 }
 
-int move_files_left(int* unpacked, int len_unpacked, int *empty_slots_buffer){
+long move_files_left(int* unpacked, int len_unpacked, int *empty_slots_buffer){
     //Get index of all the empty spots
-    int len_empty_slots = get_empty_slots(unpacked, len_unpacked, empty_slots_buffer);
-    int new_size = fill_empty_slots(unpacked, empty_slots_buffer, len_unpacked, len_empty_slots);
+    long len_empty_slots = get_empty_slots(unpacked, len_unpacked, empty_slots_buffer);
+    long new_size = fill_empty_slots(unpacked, empty_slots_buffer, len_unpacked, len_empty_slots);
     
     return new_size;
 }
 
-int calcultate_checksum(int *packed_volume, int len)
+long long calcultate_checksum(int *packed_volume, int len)
 {
-    int sum = 0;
+    long long sum = 0;
     for (int i = 0; i < len; i++)
     {
         sum += packed_volume[i] * i;
@@ -102,10 +102,10 @@ int calcultate_checksum(int *packed_volume, int len)
     return sum;
 }
 
-int pack_and_validate_volume(const char *map, int *buffer_unpacked, int *buffer_empty_slots)
+long long pack_and_validate_volume(const char *map, int *buffer_unpacked, int *buffer_empty_slots)
 {
-    int len_unpacked = unpack_disc_map(map, buffer_unpacked);
-    int len_moved = move_files_left(buffer_unpacked, len_unpacked, buffer_empty_slots);
-    int checksum = calcultate_checksum(buffer_unpacked, len_moved);
+    long len_unpacked = unpack_disc_map(map, buffer_unpacked);
+    long len_moved = move_files_left(buffer_unpacked, len_unpacked, buffer_empty_slots);
+    long long checksum = calcultate_checksum(buffer_unpacked, len_moved);
     return checksum;
 }
