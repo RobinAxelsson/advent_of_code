@@ -1,1 +1,1 @@
-# Advent of Code - the Ambition
+# Advent of Code
